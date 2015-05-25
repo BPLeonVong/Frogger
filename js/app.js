@@ -1,47 +1,7 @@
 "use strict";
-
 //Global Variables
 var GAME_LEVEL = 1;
 var LIFE_AMOUNT = 3;
-
-//A function to either return true, or false, randomly
-function getRandomBooleanResult() {
-    var temp = Math.floor(Math.random() * 2);
-    if (temp === 0) {
-        return false;
-    }
-    if (temp === 1) {
-        return true;
-    }
-    return true;
-}
-
-//A function called to set the enemy speed when it comes off the map
-function getRandomSpeed(min, max) {
-    return Math.ceil(Math.random() * (max - min) + min);
-}
-
-//A function called when setting the enemy to a random y location on the map
-function getRandomLocation() {
-    var temp = Math.ceil(Math.random() * 7);
-    switch (temp) {
-        case 1:
-            return 73;
-        case 2:
-            return 116;
-        case 3:
-            return 159;
-        case 4:
-            return 192;
-        case 5:
-            return 235;
-        case 6:
-            return 278;
-        case 7:
-            return 321;
-    }
-    return 1;
-}
 
 /*Thanks for the links on collision detection, I will definitely look into and implement these in the future, for now I just simply
 have something working.
@@ -103,9 +63,9 @@ Enemy.prototype.update = function(dt) {
     //When the object goes off the screen sets the position, speed and direction of the bug
     else {
         this.x = 0;
-        this.speed = GAME_LEVEL * getRandomSpeed(100, 200);
-        this.y = getRandomLocation();
-        if (getRandomBooleanResult()) {
+        this.speed = GAME_LEVEL * this.getRandomSpeed(100, 200);
+        this.y = this.getRandomLocation();
+        if (this.getRandomBooleanResult()) {
             this.x = canvas.width;
             this.speed *= -1;
             this.sprite = 'images/enemy-bug2.png';
@@ -119,6 +79,46 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+//Enemy Custom Functions
+//A function to either return true, or false, randomly
+Enemy.prototype.getRandomBooleanResult = function() {
+    var temp = Math.floor(Math.random() * 2);
+    if (temp === 0) {
+        return false;
+    }
+    if (temp === 1) {
+        return true;
+    }
+    return true;
+};
+//A function called to set the enemy speed when it comes off the map
+Enemy.prototype.getRandomSpeed = function(min, max) {
+    return Math.ceil(Math.random() * (max - min) + min);
+}
+
+//A function called when setting the enemy to a random y location on the map
+Enemy.prototype.getRandomLocation = function() {
+    var temp = Math.ceil(Math.random() * 7);
+    switch (temp) {
+        case 1:
+            return 73;
+        case 2:
+            return 116;
+        case 3:
+            return 159;
+        case 4:
+            return 192;
+        case 5:
+            return 235;
+        case 6:
+            return 278;
+        case 7:
+            return 321;
+    }
+    return 1;
+}
+
 
 //Player class which is an actor
 var Player = function(x, y, sprite) {
@@ -226,7 +226,7 @@ Goal.prototype.update = function(dt) {
         GAME_LEVEL++;
         player.x = 200;
         player.y = 430;
-        allEnemies.push(new Enemy(0, getRandomLocation()));
+        allEnemies.push(new Enemy(canvas.width, 239));
         $('#stars').text(GAME_LEVEL - 1);
     }
     this.tickCount++;
