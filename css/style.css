@@ -8,36 +8,36 @@ body {
 }
 /* CSS for Title */
 
-#GameTitle {
+.gameTitle {
     overflow: hidden;
     width: 100%;
     margin: 0 auto 0 auto;
     background-color: #393778;
     text-align: center;
-    color: #8483B2;
-    text-shadow: 2px 2px #0D0C40;
+    color: #8483b2;
+    text-shadow: 2px 2px #0d0c40;
     display: block;
     font-size: 36px;
 }
 /* CSS for Canvas */
 
-#Game {
+.game {
     overflow: hidden;
     width: 100%;
     margin: 0 auto 0 auto;
-    background-color: #AC8A3F;
+    background-color: #ac8a3f;
     text-align: center;
 }
 /* CSS for Game Details */
 
-#Description {
+.description {
     overflow: hidden;
     width: 100%;
     margin: 0 auto 0 auto;
     background-color: #334374;
     text-align: center;
-    color: #7D89AC;
-    text-shadow: 2px 2px #0A173E;
+    color: #7d89ac;
+    text-shadow: 2px 2px #0a173e;
 }
 /* Generic CSS */
 

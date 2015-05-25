@@ -1,3 +1,5 @@
+"use strict";
+
 //The Game Engine, what implements the canvas and controls the loop.
 var Engine = (function(global) {
 
@@ -13,11 +15,11 @@ var Engine = (function(global) {
     canvas.height = 606;
 
     //Adds the canvas to the HTML doc
-    $("#Game").append(canvas);
+    $(".game").append(canvas);
 
     //Add the description of game after the canvas
     var description = '<div id="description"><p>The stars are falling, the stars are falling. Stars have fallen on to the earth, and they are shiny, really shiny. Play as a boy who loves shiny stars, and collect as many as possible! But watch out there are bugs in front of you to stop you. Navigate pass the bugs and collect as many stars possible using the arrow keys on the keyboard as directions. Oh and be careful, if you run too fast, you might fall in the water!</p></div>';
-    $("#Description").append(description);
+    $(".description").append(description);
 
     //Game Loop
     function main() {
@@ -38,7 +40,7 @@ var Engine = (function(global) {
 
         //Recursive
         win.requestAnimationFrame(main);
-    };
+    }
 
     //Initialize Game
     function init() {
@@ -99,13 +101,13 @@ var Engine = (function(global) {
     function renderEntities() {
         for (var i = 0; i < allEnemies.length; ++i) {
             allEnemies[i].render();
-        };
+        }
         goal.render();
         player.render();
-        for (var i = 0; i < playerLives.length; ++i) {
+        for (i = 0; i < playerLives.length; ++i) {
             playerLives[i].render();
-        };
-        if (gameOver != null) {
+        }
+        if (gameOver !== null) {
             gameOver.render();
         }
     }
@@ -123,9 +125,9 @@ var Engine = (function(global) {
         'images/enemy-bug.png',
         'images/enemy-bug2.png',
         'images/char-boy.png',
-        'images/heart.png',
+        'images/Heart.png',
         'images/GameOver.png',
-        'images/star.png'
+        'images/Star.png'
     ]);
     Resources.onReady(init);
 
