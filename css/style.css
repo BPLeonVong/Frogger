@@ -1,0 +1,61 @@
+/* My CSS for the HTML page. */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #393778;
+}
+/* CSS for Title */
+
+#GameTitle {
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto 0 auto;
+    background-color: #393778;
+    text-align: center;
+    color: #8483B2;
+    text-shadow: 2px 2px #0D0C40;
+    display: block;
+    font-size: 36px;
+}
+/* CSS for Canvas */
+
+#Game {
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto 0 auto;
+    background-color: #AC8A3F;
+    text-align: center;
+}
+/* CSS for Game Details */
+
+#Description {
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto 0 auto;
+    background-color: #334374;
+    text-align: center;
+    color: #7D89AC;
+    text-shadow: 2px 2px #0A173E;
+}
+/* Generic CSS */
+
+p {
+    width: 700px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding: 10px;
+    margin: 0 auto 0 auto;
+}
+h1 {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 20px;
+    font-size: 24px;
+}
+canvas {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding: 20px;
+}
