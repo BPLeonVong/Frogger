@@ -11,7 +11,7 @@ var Engine = (function(global) {
         lastTime;
 
     //Set canvas size
-    canvas.width = 505;
+    canvas.width = 459;
     canvas.height = 606;
 
     //Adds the canvas to the HTML doc
@@ -91,7 +91,7 @@ var Engine = (function(global) {
         //Render tilemap
         for (row = 0; row < numRows; row++) {
             for (col = 0; col < numCols; col++) {
-                ctx.drawImage(Resources.get(rowImages[row]), 23 + col * 51, row * 43);
+                ctx.drawImage(Resources.get(rowImages[row]), col * 51, row * 43);
             }
         }
         renderEntities();

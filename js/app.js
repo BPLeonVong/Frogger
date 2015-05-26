@@ -54,7 +54,7 @@ Enemy.prototype.constructor = Enemy;
 //Enemy Update
 Enemy.prototype.update = function(dt) {
     //When the object is on the screen and checks if player hits this bug *deal* with the player
-    if (this.x <= canvas.width && this.x >= -60) {
+    if (this.x <= canvas.width && this.x >= -51) {
         this.x += (this.speed) * dt;
         if (checkCollision(player, this)) {
             player.isHit();
@@ -62,11 +62,11 @@ Enemy.prototype.update = function(dt) {
     }
     //When the object goes off the screen sets the position, speed and direction of the bug
     else {
-        this.x = 0;
+        this.x = -50;
         this.speed = GAME_LEVEL * this.getRandomSpeed(100, 200);
         this.y = this.getRandomLocation();
         if (this.getRandomBooleanResult()) {
-            this.x = canvas.width;
+            this.x = canvas.width-1;
             this.speed *= -1;
             this.sprite = 'images/enemy-bug2.png';
         } else {
@@ -92,10 +92,11 @@ Enemy.prototype.getRandomBooleanResult = function() {
     }
     return true;
 };
+
 //A function called to set the enemy speed when it comes off the map
 Enemy.prototype.getRandomSpeed = function(min, max) {
     return Math.ceil(Math.random() * (max - min) + min);
-}
+};
 
 //A function called when setting the enemy to a random y location on the map
 Enemy.prototype.getRandomLocation = function() {
@@ -117,13 +118,13 @@ Enemy.prototype.getRandomLocation = function() {
             return 321;
     }
     return 1;
-}
+};
 
 
 //Player class which is an actor
 var Player = function(x, y, sprite) {
     sprite = sprite || 'images/char-boy.png';
-    x = x || 200;
+    x = x || 178;
     y = y || 430;
     Actor.call(this, x, y, sprite);
 };
@@ -181,7 +182,7 @@ Player.prototype.update = function(dt) {
                 ];
                 GAME_LEVEL = 1;
                 LIFE_AMOUNT = 3;
-                this.x = 200;
+                this.x = 178;
                 this.y = 430;
                 gameOver = null;
                 $('#stars').text(0);
@@ -193,7 +194,7 @@ Player.prototype.update = function(dt) {
 
 //Player is hit.
 Player.prototype.isHit = function() {
-    this.x = 200;
+    this.x = 178;
     this.y = 430;
     if (LIFE_AMOUNT > 1) {
         playerLives[LIFE_AMOUNT - 1].toggleLife();
@@ -207,7 +208,7 @@ Player.prototype.isHit = function() {
 //Goal Class
 var Goal = function(x, y, sprite) {
     sprite = sprite || 'images/Star.png';
-    x = x || 225;
+    x = x || 202;
     y = y || 15;
     Actor.call(this, x, y, sprite);
 };
@@ -224,7 +225,7 @@ Goal.prototype.update = function(dt) {
     this.ticksPerFrame = 6;
     if (checkCollision(player, this)) {
         GAME_LEVEL++;
-        player.x = 200;
+        player.x = 178;
         player.y = 430;
         allEnemies.push(new Enemy(canvas.width, 239));
         $('#stars').text(GAME_LEVEL - 1);
@@ -277,9 +278,9 @@ GameOver.prototype.render = function() {
 
 // Instantiate the Objects
 var allEnemies = [
-    new Enemy(0, 73),
-    new Enemy(0, 156),
-    new Enemy(0, 239)
+    new Enemy(-50, 73),
+    new Enemy(-50, 156),
+    new Enemy(-50, 239)
 ];
 var goal = new Goal();
 var player = new Player();
