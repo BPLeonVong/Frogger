@@ -14,16 +14,6 @@ http://blog.sklambert.com/html5-canvas-game-2d-collision-detection/
 YouTube videos on the topic:
 https://www.youtube.com/watch?v=NZHzgXFKfuY&list=PL524PPbZds58j4Ah_ix5G1TXp5-M8zJq0
 */
-//Check Collision Between two objects
-function checkCollision(player, object) {
-    var xDist = Math.abs((player.x + 51) - (object.x + 23));
-    var yDist = Math.abs((player.y + 85) - (object.y + 23));
-    if (xDist + yDist < 20) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 //Actor Base Class, all sprites utilize this.
 var Actor = function(x, y, sprite) {
@@ -56,7 +46,7 @@ Enemy.prototype.update = function(dt) {
     //When the object is on the screen and checks if player hits this bug *deal* with the player
     if (this.x <= canvas.width && this.x >= -51) {
         this.x += (this.speed) * dt;
-        if (checkCollision(player, this)) {
+        if (this.checkCollision(player, this)) {
             player.isHit();
         }
     }
@@ -120,12 +110,23 @@ Enemy.prototype.getRandomLocation = function() {
     return 1;
 };
 
+//Check Collision Between two objects
+Enemy.prototype.checkCollision = function(player, object) {
+    var xDist = Math.abs((player.x + 25.5) - (object.x + 25.5));
+    var yDist = Math.abs((player.y + 43) - (object.y + 43));
+    if (xDist + yDist < 20) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 //Player class which is an actor
 var Player = function(x, y, sprite) {
     sprite = sprite || 'images/char-boy.png';
-    x = x || 178;
-    y = y || 430;
+    x = x || 205;
+    y = y || 500;
     Actor.call(this, x, y, sprite);
 };
 Player.prototype = Object.create(Actor.prototype);
@@ -149,13 +150,13 @@ Player.prototype.update = function(dt) {
     //Movement
     switch (this.action) {
         case 'up':
-            if (this.y > -60)
+            if (this.y > 0)
                 this.y -= moveDistanceY;
-            if (this.y < -60)
+            if (this.y < 0)
                 player.isHit();
             break;
         case 'right':
-            if (this.x < 400)
+            if (this.x < 370)
                 this.x += moveDistanceX;
             break;
         case 'down':
@@ -163,7 +164,7 @@ Player.prototype.update = function(dt) {
                 this.y += moveDistanceY;
             break;
         case 'left':
-            if (this.x > 30)
+            if (this.x > 20)
                 this.x -= moveDistanceX;
             break;
         case 'enter':
@@ -182,8 +183,8 @@ Player.prototype.update = function(dt) {
                 ];
                 GAME_LEVEL = 1;
                 LIFE_AMOUNT = 3;
-                this.x = 178;
-                this.y = 430;
+                this.x = 205;
+                this.y = 500;
                 gameOver = null;
                 $('#stars').text(0);
             }
@@ -194,8 +195,8 @@ Player.prototype.update = function(dt) {
 
 //Player is hit.
 Player.prototype.isHit = function() {
-    this.x = 178;
-    this.y = 430;
+    this.x = 205;
+    this.y = 500;
     if (LIFE_AMOUNT > 1) {
         playerLives[LIFE_AMOUNT - 1].toggleLife();
         LIFE_AMOUNT--;
@@ -223,10 +224,10 @@ Goal.prototype.render = function() {
 //Sets the frame of the goal and checks if collides with the player
 Goal.prototype.update = function(dt) {
     this.ticksPerFrame = 6;
-    if (checkCollision(player, this)) {
+    if (this.checkCollision(player, this)) {
         GAME_LEVEL++;
-        player.x = 178;
-        player.y = 430;
+        player.x = 205;
+        player.y = 500;
         allEnemies.push(new Enemy(canvas.width, 239));
         $('#stars').text(GAME_LEVEL - 1);
     }
@@ -240,6 +241,16 @@ Goal.prototype.update = function(dt) {
     }
 };
 
+Goal.prototype.checkCollision = function(player, object) {
+    var xDist = Math.abs((player.x + 25.5) - (object.x + 25.5));
+    var yDist = Math.abs((player.y + 43) - (object.y + 43));
+    if (xDist + yDist < 20) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 //Lives Sprite
 var Lives = function(x, y, sprite) {
     sprite = sprite || 'images/Heart.png';
@@ -252,8 +263,7 @@ Lives.prototype.constructor = Goal;
 
 //Render Lives
 Lives.prototype.render = function() {
-    //ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    ctx.drawImage(Resources.get(this.sprite), 25.5 * this.frame, 0, 25.5, 86, this.x, this.y, 25.5, 86);
+    ctx.drawImage(Resources.get(this.sprite), 26 * this.frame, 0, 26, 43, this.x, this.y, 26, 43);
 };
 
 //If player loses a life call this function to toggle lives
