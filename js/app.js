@@ -160,7 +160,7 @@ Player.prototype.update = function(dt) {
                 this.x += moveDistanceX;
             break;
         case 'down':
-            if (this.y < 400)
+            if (this.y < 460)
                 this.y += moveDistanceY;
             break;
         case 'left':
